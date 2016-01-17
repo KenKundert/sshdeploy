@@ -45,7 +45,7 @@ dictionaries name 'Keys'.  Here is a typical configuration file::
                 'earth': {'send': ['private-key', 'authorized-keys']},
                 'mercury': {
                     'description': 'Access is funneled through Jupiter',
-                    'restrictions': ['from=jupiter]
+                    'restrictions': ['from=jupiter']
                 },
                 'jupiter': {},
             },
@@ -87,7 +87,7 @@ dictionaries name 'Keys'.  Here is a typical configuration file::
 
 
 The keys of the first level of dictionaries should be the filenames for the 
-private keys. The values should be a dictionary that may contain the keys 
+private keys. The values should be dictionaries that may contain the keys 
 'purpose' and 'servers'.
 
 Purpose
@@ -98,10 +98,10 @@ authorized key file.
 
 Servers
 -------
-The servers key would contain a dictionary where its keys would be the SSH name 
-of the servers that should receive the key.  The value of the servers key is 
-also a dictionary that may be empty or may contain the following keys: 
-'description', 'send', 'restrictions'.
+The servers key contains a dictionary where its keys would be the SSH name of 
+the servers that should receive the key.  The value of the servers key is also 
+a dictionary that may be empty or may contain the following keys: 'description', 
+'send', 'restrictions'.
 
 Description
 '''''''''''
@@ -113,9 +113,10 @@ Send
 The value of send may either be 'authorized-keys', 'private-key' or a list that 
 contains either or both of the values. If not given, it is assumed to be 
 'authorized-keys'. If the value contains 'authorized-keys', an updated 
-authorized_keys file will be sent to that server.  If it contains 'private-key', 
-the private key and its corresponding public key will be copied to the server.
+authorized_keys file is sent to that server.  If it contains 'private-key', the 
+private key and its corresponding public key is copied to the server.
 
 Restrictions
 ''''''''''''
-The value of restrictions is a list of SSH key restrictions.
+The value of restrictions is a list of SSH key restrictions. These restrictions 
+are comma joined and placed before the public key in the authorized key file.
