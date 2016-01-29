@@ -15,7 +15,7 @@ setup(
     author="Ken Kundert",
     author_email='sshpush@nurdletech.com',
     url='http://nurdletech.com/linux-utilities/sshpush',
-    download_url='https://github.com/kenkundert/sshpush/tarball/master')
+    download_url='https://github.com/kenkundert/sshpush/tarball/master',
     entry_points = {
         'console_scripts': ['sshpush=src.main:main'],
     },
