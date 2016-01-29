@@ -14,7 +14,8 @@ setup(
     description="Generates and distributes SSH keys.",
     author="Ken Kundert",
     author_email='sshpush@nurdletech.com',
-    download_url='https://github.com/kenkundert/sshpush.git',
+    url='http://nurdletech.com/linux-utilities/sshpush',
+    download_url='https://github.com/kenkundert/sshpush/tarball/master')
     entry_points = {
         'console_scripts': ['sshpush=src.main:main'],
     },
