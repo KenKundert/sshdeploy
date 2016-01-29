@@ -7,7 +7,7 @@ rm -f README.rst README.pdf
 # the rest is common to all python directories
 rm -f *.pyc *.pyo .test*.sum expected result install.out .sshpush.log
 rm -rf build *.egg-info dist __pycache__ .coverage .coverage-html
-rm keys-????-??-??/.{ref,test}
+rm -f keys-????-??-??/.{ref,test}
 
 foreach i (*/clean)
     if ($i == "*/clean") break
