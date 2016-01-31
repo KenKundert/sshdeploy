@@ -1,4 +1,4 @@
-"""Generate Keys
+"""SSH Deploy
 
 Regenerates and distributes SSH keys.
 

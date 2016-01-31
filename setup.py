@@ -1,12 +1,35 @@
 from setuptools import setup
+from textwrap import dedent
 
-# create README file
+# create README file by combining src/manual.rst with the following 
+# installation instructions
+install = dedent("""\
+    Installation
+    ============
+
+    If you plan to use SSH Deploy without modifying it, the preferred way to 
+    install it for multiple users is::
+
+       pip install --update sshdeploy
+
+    Doing so generally requires root permissions. Alternately, you can install it 
+    just for yourself using::
+
+       pip install --user --update sshdeploy
+
+    This installs sshdeploy into ~/.local and so does not require root permissions.
+
+    If you would like to change the program, you should first clone it's source 
+    repository and then install it::
+
+       git clone https://github.com/KenKundert/sshdeploy.git
+       cd sshdeploy
+       python setup.py install --user
+""")
 with open('src/manual.rst') as f:
     manual = f.read()
-with open('INSTALL.rst') as f:
-    install = f.read()
 with open('README.rst', 'w') as f:
-    install = f.write('\n\n'.join([manual, install]))
+    f.write('\n\n'.join([manual, install]))
 
 setup(
     name='sshdeploy',
