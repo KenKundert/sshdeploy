@@ -9,15 +9,17 @@ with open('README.rst', 'w') as f:
     install = f.write('\n\n'.join([manual, install]))
 
 setup(
-    name='sshpush',
+    name='sshdeploy',
     version='1.0.0',
     description="Generates and distributes SSH keys.",
     author="Ken Kundert",
-    author_email='sshpush@nurdletech.com',
-    url='http://nurdletech.com/linux-utilities/sshpush',
-    download_url='https://github.com/kenkundert/sshpush/tarball/master',
+    author_email='sshdeploy@nurdletech.com',
+    url='http://nurdletech.com/linux-utilities/sshdeploy',
+    download_url='https://github.com/kenkundert/sshdeploy/tarball/master',
     entry_points = {
-        'console_scripts': ['sshpush=src.main:main'],
+        'console_scripts': [
+            'sshdeploy=src.main:main',
+        ],
     },
     zip_safe = False,
     packages=['src'],

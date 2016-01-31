@@ -5,7 +5,7 @@ set nonomatch
 rm -f README.rst README.pdf
 
 # the rest is common to all python directories
-rm -f *.pyc *.pyo .test*.sum expected result install.out .sshpush.log
+rm -f *.pyc *.pyo .test*.sum expected result install.out .sshdeploy.log
 rm -rf build *.egg-info dist __pycache__ .coverage .coverage-html
 rm -f keys-????-??-??/.{ref,test}
 
