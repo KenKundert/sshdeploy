@@ -354,7 +354,7 @@ just for yourself using::
 
    pip install --user --update sshdeploy
 
-This does not require root permissions.
+This installs sshdeploy into ~/.local and so does not require root permissions.
 
 If you would like to change the program, you should first clone it's source 
 repository and then install it::
