@@ -1,6 +1,6 @@
---------------------------------------------
-sshdeploy - generate and distribute ssh keys
---------------------------------------------
+---------------------------------------------
+SSH Deploy - Generate and Distribute SSH Keys
+---------------------------------------------
 
 
 SYNOPSIS
@@ -49,12 +49,12 @@ Abraxas collaborative password generator to securely generate the passcodes.
 This avoids the need for you to interactively enter the passcodes.
 
 sshdeploy generate
-------------------
+******************
 
 The generate command regenerates the SSH key pairs.
 
 sshdeploy distribute
---------------------
+********************
 
 The distribute command copies the SSH key pair to to the clients and the 
 authorized_keys files to the servers.  It can only be run after the generate key 
@@ -62,20 +62,20 @@ has been run.  Before it runs it will clean out any .provisional files from
 previous trial runs.
 
 sshdeploy test
---------------
+**************
 
 The test command checks the connection with each of the hosts (the clients and 
 servers).  It should be run before distribute to assure that each of the hosts 
 is accessible.
 
 sshdeploy clean
----------------
+***************
 
 The clean command removes the .provisional files from each of the hosts.  The 
 .provisional files are created during a trial run of the distribute command.
 
 sshdeploy manual
-----------------
+****************
 
 The manual command displays a detailed description of the program and how to use 
 it.

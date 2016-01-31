@@ -1,5 +1,5 @@
 Installation
-++++++++++++
+============
 
 If you plan to use SSH Keys without modifying it the preferred way to install it 
 for multiple users is::
