@@ -8,6 +8,7 @@ SYNOPSIS
 
 sshdeploy [options] generate
 sshdeploy [options] test
+sshdeploy [options] hosts
 sshdeploy [options] distribute
 sshdeploy [options] clean
 sshdeploy manual
@@ -67,6 +68,13 @@ sshdeploy test
 The test command checks the connection with each of the hosts (the clients and 
 servers).  It should be run before distribute to assure that each of the hosts 
 is accessible.
+
+sshdeploy hosts
+***************
+
+The hosts command simply lists out the hosts. Hosts include the servers that 
+will receive the authorized_keys file and the clients that will receive the SSH 
+key pairs.
 
 sshdeploy clean
 ***************
