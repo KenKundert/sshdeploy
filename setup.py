@@ -33,7 +33,7 @@ with open('README.rst', 'w') as f:
 
 setup(
     name='sshdeploy',
-    version='1.1.1',
+    version='1.1.2',
     description="Generates and distributes SSH keys.",
     author="Ken Kundert",
     author_email='sshdeploy@nurdletech.com',
