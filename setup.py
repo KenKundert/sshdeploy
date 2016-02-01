@@ -29,12 +29,14 @@ install = dedent("""\
 with open('src/manual.rst') as f:
     manual = f.read()
 with open('README.rst', 'w') as f:
-    f.write('\n\n'.join([manual, install]))
+    readme ='\n\n'.join([manual, install])
+    f.write(readme)
 
 setup(
     name='sshdeploy',
     version='1.1.2',
     description="Generates and distributes SSH keys.",
+    long_description=readme,
     author="Ken Kundert",
     author_email='sshdeploy@nurdletech.com',
     url='http://nurdletech.com/linux-utilities/sshdeploy',
