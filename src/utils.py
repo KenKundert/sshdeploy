@@ -34,7 +34,7 @@ def test_access(host):
             fmt('rm {ref}')
         ])
         if test.read_text() == payload:
-            comment(fmt('{host}: connection successful.'))
+            comment('connection successful.', culprit=host)
         else:
             error('cannot connect.', culprit=host)
     except OSError as err:

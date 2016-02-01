@@ -5,6 +5,7 @@ Regenerates and distributes SSH keys.
 Usage:
     sshdeploy [options] generate
     sshdeploy [options] test
+    sshdeploy [options] hosts
     sshdeploy [options] distribute
     sshdeploy [options] clean
     sshdeploy manual
@@ -28,6 +29,7 @@ Keys and servers are specified with a comma separated list (no spaces).
 """ 
 
 # Imports {{{1
+from . import __version__
 from .prefs import (
     DefaultKeygenOpts, DefaultAbraxasAccount, DefaultRemoteIncludeFilename
 )
@@ -52,7 +54,8 @@ def main():
             verbose=cmdline['--verbose'],
             logfile='.sshdeploy.log',
             prog_name=False,
-            flush=True
+            flush=True,
+            version=__version__
         )
         if keys and not cmdline['--trial-run']:
             fatal(
@@ -148,7 +151,7 @@ def main():
                     authkey.verify()
 
         # Process hosts {{{1
-        elif cmdline['test'] or cmdline['clean']:
+        elif cmdline['test'] or cmdline['clean'] or cmdline['hosts']:
             hosts = set()
             for keyname, data in config['keys'].items():
                 if keys and keyname not in keys:
@@ -172,10 +175,14 @@ def main():
                 # test host
                 for host in sorted(hosts):
                     test_access(host)
-            else:
+            elif cmdline['clean']:
                 # clean host
                 for host in sorted(hosts):
                     clean(host)
+            else:
+                # list hosts
+                for host in sorted(hosts):
+                    display(host)
 
     except OSError as err:
         error(os_error(err))
