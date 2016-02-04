@@ -1,7 +1,7 @@
 from setuptools import setup
 from textwrap import dedent
 
-# create README file by combining src/manual.rst with the following 
+# create README file by combining sshdeploy/manual.rst with the following 
 # installation instructions
 install = dedent("""\
     Installation
@@ -26,7 +26,7 @@ install = dedent("""\
        cd sshdeploy
        python setup.py install --user
 """)
-with open('src/manual.rst') as f:
+with open('sshdeploy/manual.rst') as f:
     manual = f.read()
 with open('README.rst', 'w') as f:
     readme ='\n\n'.join([manual, install])
@@ -43,12 +43,12 @@ setup(
     download_url='https://github.com/kenkundert/sshdeploy/tarball/master',
     entry_points = {
         'console_scripts': [
-            'sshdeploy=src.main:main',
+            'sshdeploy=sshdeploy.main:main',
         ],
     },
     zip_safe = False,
-    packages=['src'],
-    package_data={'src': ['manual.rst']},
+    packages=['sshdeploy'],
+    package_data={'sshdeploy': ['manual.rst']},
     license='GPLv3+',
     install_requires=[
         'arrow',
