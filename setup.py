@@ -33,24 +33,24 @@ with open('README.rst', 'w') as f:
     f.write(readme)
 
 setup(
-    name='sshdeploy',
-    version='1.1.4',
-    description="Generates and distributes SSH keys.",
-    long_description=readme,
-    author="Ken Kundert",
-    author_email='sshdeploy@nurdletech.com',
-    url='http://nurdletech.com/linux-utilities/sshdeploy',
-    download_url='https://github.com/kenkundert/sshdeploy/tarball/master',
+    name = 'sshdeploy',
+    version = '1.1.4',
+    description = "Generates and distributes SSH keys.",
+    long_description = readme,
+    author = "Ken Kundert",
+    author_email = 'sshdeploy@nurdletech.com',
+    url = 'http://nurdletech.com/linux-utilities/sshdeploy',
+    download_url = 'https://github.com/kenkundert/sshdeploy/tarball/master',
     entry_points = {
         'console_scripts': [
             'sshdeploy=sshdeploy.main:main',
         ],
     },
     zip_safe = False,
-    packages=['sshdeploy'],
-    package_data={'sshdeploy': ['manual.rst']},
-    license='GPLv3+',
-    install_requires=[
+    packages = ['sshdeploy'],
+    package_data = {'sshdeploy': ['manual.rst']},
+    license = 'GPLv3+',
+    install_requires = [
         'arrow',
         'docopt',
         'inform',
@@ -58,11 +58,11 @@ setup(
         'shlib',
         #'abraxas', -- not yet in pypi
     ],
-    keywords=[
+    keywords = [
         'ssh',
         'keys',
     ],
-    classifiers=[
+    classifiers = [
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
         'Intended Audience :: End Users/Desktop',

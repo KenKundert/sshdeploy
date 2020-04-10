@@ -44,10 +44,10 @@ DESCRIPTION
 ===========
 
 SSH Deploy reads a configuration file that contains information about the SSH 
-keys you use.  Using this information it will regenerate and distribute your 
-keys.  When generating your keys a passcode is needed.  SSH Deploy uses the 
-Abraxas collaborative password generator to securely generate the passcodes.  
-This avoids the need for you to interactively enter the passcodes.
+keys you use.  Using this information it regenerates and distributes your keys.  
+When generating your keys a passcode is needed.  SSH Deploy uses the Abraxas 
+collaborative password generator to securely generate the passcodes.  This 
+avoids the need for you to interactively enter the passcodes.
 
 sshdeploy generate
 ******************
@@ -66,21 +66,21 @@ sshdeploy test
 **************
 
 The test command checks the connection with each of the hosts (the clients and 
-servers).  It should be run before distribute to assure that each of the hosts 
-is accessible.
+servers).  It should be run before *distribute* to assure that each of the 
+hosts is accessible.
 
 sshdeploy hosts
 ***************
 
 The hosts command simply lists out the hosts. Hosts include the servers that 
-will receive the authorized_keys file and the clients that will receive the SSH 
-key pairs.
+are to receive the authorized_keys file and the clients that are to receive the 
+SSH key pairs.
 
 sshdeploy clean
 ***************
 
 The clean command removes the .provisional files from each of the hosts.  The 
-.provisional files are created during a trial run of the distribute command.
+.provisional files are created during a trial run of the *distribute* command.
 
 sshdeploy manual
 ****************
@@ -141,7 +141,7 @@ default is sshdeploy.conf).  Here is a typical configuration file::
                     ],
                 },
             },
-            'servers': {
+            'clients': {
                 'earth': {},
                 'mercury': {},
             },
@@ -226,10 +226,10 @@ for a file in the server's ~/.ssh directory that contains public keys for keys
 not managed by SSH Deploy that should be included in the authorized_keys file.  
 The value of this variable is the name of that file.
 
-In an configuration file the same server may be referenced many times, once per 
+In a configuration file the same server may be referenced many times, once per 
 key.  The remote include file is only read the first time a server is 
-encountered (they are processed in alphabetic order).  It is recommended that if 
-this value is given, it be given consistently in each instance of a server, 
+encountered (they are processed in alphabetic order).  It is recommended that 
+if this value is given, it be given consistently in each instance of a server, 
 otherwise warnings will be issued and each value except the first will be 
 ignored.
 
@@ -248,7 +248,7 @@ Clients
 -------
 The clients key contains a dictionary where its keys would be the SSH
 names of client hosts that should receive the private and public key.
-The value of the servers key is also a dictionary that should be empty
+The value of the clients key is also a dictionary that should be empty
 (at this point any contents will be ignored).
 
 
@@ -294,11 +294,10 @@ sshdeploy will add the .provisional suffix to any file it copies to a remote
 host.  Thus, the basic strategy is to run distribute command with the 
 --trial-run option while carefully examining the provisional files to make sure 
 everything working as expected.  Running sshdeploy with many keys and hosts can 
-be time consuming, so several command line options are provide that allow you to 
-limit your activities to particular keys (--keys), particular servers (--update, 
---skip), and particular phases (--generate-only, --distribute-only).  In 
-addition, sshdeploy also provides the --narrate and --verbose options to make 
-sshdeploy's activities more obvious to you.
+be time consuming, so several command line options are provide that allow you 
+to limit your activities to particular keys (--keys) and servers (--update, 
+--skip).  In addition, sshdeploy also provides the --narrate and --verbose 
+options to make sshdeploy's activities more obvious to you.
 
 Once you are confident that things are configured properly, it is recommended 
 that you follow the following process to generate and distribute your ssh keys.
@@ -309,9 +308,9 @@ that you follow the following process to generate and distribute your ssh keys.
 
 2. Make sure all of your hosts (servers and clients) are up and accessible.  You 
    can do that with::
-   
+
       sshdeploy test
-       
+
    However, it is even better for you to simply open and keep active a ssh or 
    sftp process to each of the remote hosts.  Leave them open until all of your 
    hosts are known to work.  That way if there is a problem that corrupts the 
@@ -320,7 +319,7 @@ that you follow the following process to generate and distribute your ssh keys.
 3. Do a full trial run of distribute::
 
       sshdeploy -t distribute
-      
+
    Confirm that provisional versions of all of your ssh keys and authorized_keys 
    files are being properly created and distributed to all of your hosts.  You 
    can first look in the keys directory to make sure the right authorized_keys 
@@ -332,8 +331,7 @@ that you follow the following process to generate and distribute your ssh keys.
       sshdeploy distribute
 
    Do not add --trial-run, --update, --skip, or --keys to the list of command 
-   line options.  It is also recommended that you do not split the process into 
-   two commands by using --generate-only or --distribute-only.
+   line options.
 
 5. Immediately after the update, start a new ssh-agent in a new shell and add 
    your new keys.  If you have ControlMaster in your SSH config file, you should 
