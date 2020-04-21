@@ -70,7 +70,7 @@ def main():
             try:
                 Run(
                     cmd=['less'], modes='soeW0',
-                    stdin=resource_string('src', 'manual.rst').decode('utf8')
+                    stdin=resource_string(__name__, 'manual.rst').decode('utf8')
                 )
             except OSError as err:
                 error(os_error(err))

@@ -6,33 +6,29 @@ SSH Deploy - Generate and Distribute SSH Keys
 SYNOPSIS
 ========
 
-::
-
-    sshdeploy [options] generate
-    sshdeploy [options] test
-    sshdeploy [options] hosts
-    sshdeploy [options] distribute
-    sshdeploy [options] clean
-    sshdeploy manual
+sshdeploy [options] generate
+sshdeploy [options] test
+sshdeploy [options] hosts
+sshdeploy [options] distribute
+sshdeploy [options] clean
+sshdeploy manual
 
 
 OPTIONS
 =======
 
-::
-
-    -c <file>, --config-file <file>   file that contains list of keys to 
-                                      generate and the hosts that should receive 
-                                      the keys (sshdeploy.conf is default).
-    -d <name>, --keydir <name>        name of directory for holding new keys
-                                      (keys-YYYY-MM-DD is default).
-    -u <hosts>, --update <hosts>      hosts to update
-    -s <hosts>, --skip <hosts>        hosts to skip
-    -k <keys>, --keys <keys>          keys to update (only use with --trial-run)
-    -t, --trial-run                   trial run (do not overwrite working ssh files)
-    -n, --narrate                     narrate the process
-    -v, --verbose                     narrate the process more verbosely
-    -h, --help                        print usage summary
+-c <file>, --config-file <file>   file that contains list of keys to generate nd 
+                                  the hosts that should receive the keys 
+                                  (sshdeploy.conf is default).
+-d <name>, --keydir <name>        name of directory for holding new keys
+                                  (keys-YYYY-MM-DD is default).
+-u <hosts>, --update <hosts>      hosts to update
+-s <hosts>, --skip <hosts>        hosts to skip
+-k <keys>, --keys <keys>          keys to update (only use with --trial-run)
+-t, --trial-run                   trial run (do not overwrite working ssh files)
+-n, --narrate                     narrate the process
+-v, --verbose                     narrate the process more verbosely
+-h, --help                        print usage summary
 
 You specify multiple hosts or keys using a comma-separated list.
 
@@ -91,10 +87,10 @@ it.
 
 .. warning::
 
-    This program is not recommended for use. It has a fundamental flaw during 
-    the update process that overwrites critical files, resulting in the update 
-    process breaking down midstream. If this occurs you may be locked out of 
-    your servers.  It is possible to work around the problem by skipping the 
+    This program is not recommended for general use. It has a fundamental flaw 
+    during the update process that overwrites critical files, resulting in the 
+    update process breaking down midstream. If this occurs you may be locked out 
+    of your servers.  It is possible to work around the problem by skipping the 
     update of your local machine and then manually performing that update later.
 
 

@@ -91,10 +91,10 @@ it.
 
 .. warning::
 
-    This program is not recommended for use. It has a fundamental flaw during 
-    the update process that overwrites critical files, resulting in the update 
-    process breaking down midstream. If this occurs you may be locked out of 
-    your servers.  It is possible to work around the problem by skipping the 
+    This program is not recommended for general use. It has a fundamental flaw 
+    during the update process that overwrites critical files, resulting in the 
+    update process breaking down midstream. If this occurs you may be locked out 
+    of your servers.  It is possible to work around the problem by skipping the 
     update of your local machine and then manually performing that update later.
 
 
