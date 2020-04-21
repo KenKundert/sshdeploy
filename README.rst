@@ -3,8 +3,8 @@ SSH Deploy - Generate and Distribute SSH Keys
 ---------------------------------------------
 
 :Author: Ken Kundert
-:Version: 1.1.4
-:Released: 2016-01-31
+:Version: 1.1.5
+:Released: 2020-04-21
 
 
 SYNOPSIS

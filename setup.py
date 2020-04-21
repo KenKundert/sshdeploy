@@ -34,7 +34,7 @@ with open('README.rst', 'w') as f:
 
 setup(
     name = 'sshdeploy',
-    version = '1.1.4',
+    version = '1.1.5',
     description = "Generates and distributes SSH keys.",
     long_description = readme,
     author = "Ken Kundert",
