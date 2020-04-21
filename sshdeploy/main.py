@@ -26,18 +26,17 @@ Options:
     -h, --help                        print usage summary
 
 Keys and servers are specified with a comma separated list (no spaces).
-""" 
+"""
 
 # Imports {{{1
 from . import __version__
 from .prefs import (
-    DefaultKeygenOpts, DefaultAbraxasAccount, DefaultRemoteIncludeFilename
+    DefaultKeygenOpts, DefaultAvendesoraAccount, DefaultRemoteIncludeFilename
 )
-from .utils import date, test_access, clean
-from .key import Key
 from .authkeys import AuthKeys
+from .key import Key
+from .utils import date, test_access, clean, to_path, Run, mkdir, cd, rm
 from docopt import docopt
-from shlib import to_path, Run, mkdir, cd, rm
 from inform import (
     Inform, comment, display, done, error, fatal, os_error, terminate
 )
@@ -105,9 +104,9 @@ def main():
         # determine default values for key options
         defaults = {}
         for name, default in [
-            ('keygen-options', DefaultKeygenOpts),
-            ('abraxas-account', DefaultAbraxasAccount),
-            ('remote-include-filename', DefaultRemoteIncludeFilename),
+            ('keygen_options', DefaultKeygenOpts),
+            ('avendesora_account', DefaultAvendesoraAccount),
+            ('remote_include_filename', DefaultRemoteIncludeFilename),
         ]:
             defaults[name] = config.get(name, default)
 

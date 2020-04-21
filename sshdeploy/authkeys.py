@@ -1,7 +1,6 @@
-from .utils import date, run_sftp, test_access
-from shlib import to_path
+from .utils import date, run_sftp, test_access, to_path
 from inform import (
-    comment, cull, error, fmt, is_str, narrate, os_error, warn
+    Error, codicil, comment, cull, error, fmt, is_str, narrate, os_error, warn
 )
 
 
@@ -31,15 +30,13 @@ class AuthKeys:
         if include_file and not bypass:
             narrate(fmt('    retrieving remote include file from {server}.'))
             try:
-                try:
-                    run_sftp(self.server, [
-                        fmt('get .ssh/{inc} {inc}.{server}', inc=include_file)
-                    ])
-                    self.include = to_path(include_file + '.' + server).read_text()
-                except OSError as err:
-                    comment(fmt('    sftp {server}: {include_file} not found.'))
-            except OSError as err:
-                error(os_error(err))
+                run_sftp(self.server, [
+                    fmt('get .ssh/{inc} {inc}.{server}', inc=include_file)
+                ])
+                self.include = to_path(include_file + '.' + server).read_text()
+            except Error as e:
+                comment(fmt('    sftp {server}: {include_file} not found.'))
+                codicil(e)
 
         return self
 
@@ -76,9 +73,9 @@ class AuthKeys:
         # the goal here is to leave a clean directory when not trial-run
         try:
             run_sftp(self.server, [
-                fmt('rm .ssh/authorized_keys.provisional')
+                fmt('rm .ssh/*.provisional')
             ])
-        except OSError as err:
+        except Error:
             pass
 
         # now upload the new authorized_keys file
@@ -94,11 +91,12 @@ class AuthKeys:
                     culprit=self.server
                 )
             else:
-                run_sftp(self.server, [
-                    fmt('put -p {authkey} .ssh/authorized_keys{prov}')
-                ])
-        except OSError as err:
-            error(os_error(err))
+                cmds = [fmt('put -p {authkey} .ssh/authorized_keys{prov}')]
+                for name in self.keys:
+                    cmds.append(fmt('put -p {name}.pub .ssh/{name}.pub{prov}'))
+                run_sftp(self.server, cmds)
+        except Error as e:
+            error(e)
 
     def verify(self):
         if self.bypass:

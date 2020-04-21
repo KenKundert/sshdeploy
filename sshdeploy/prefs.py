@@ -1,4 +1,4 @@
 # Defaults
 DefaultKeygenOpts = "-t rsa -b 4096"
-DefaultAbraxasAccount = "ssh"
+DefaultAvendesoraAccount = "ssh"
 DefaultRemoteIncludeFilename = None

@@ -6,28 +6,33 @@ SSH Deploy - Generate and Distribute SSH Keys
 SYNOPSIS
 ========
 
-sshdeploy [options] generate
-sshdeploy [options] test
-sshdeploy [options] hosts
-sshdeploy [options] distribute
-sshdeploy [options] clean
-sshdeploy manual
+::
+
+    sshdeploy [options] generate
+    sshdeploy [options] test
+    sshdeploy [options] hosts
+    sshdeploy [options] distribute
+    sshdeploy [options] clean
+    sshdeploy manual
 
 
 OPTIONS
 =======
--c <file>, --config-file <file>   file that contains list of keys to generate 
-                                  and the hosts that should receive the keys 
-                                  (sshdeploy.conf is default).
--d <name>, --keydir <name>        name of directory for holding new keys
-                                  ('keys-YYYY-MM-DD' is default).
--u <hosts>, --update <hosts>      hosts to update
--s <hosts>, --skip <hosts>        hosts to skip
--k <keys>, --keys <keys>          keys to update (only use with --trial-run)
--t, --trial-run                   try run (do not overwrite working ssh files)
--n, --narrate                     narrate the process
--v, --verbose                     narrate the process more verbosely
--h, --help                        print usage summary
+
+::
+
+    -c <file>, --config-file <file>   file that contains list of keys to 
+                                      generate and the hosts that should receive 
+                                      the keys (sshdeploy.conf is default).
+    -d <name>, --keydir <name>        name of directory for holding new keys
+                                      (keys-YYYY-MM-DD is default).
+    -u <hosts>, --update <hosts>      hosts to update
+    -s <hosts>, --skip <hosts>        hosts to skip
+    -k <keys>, --keys <keys>          keys to update (only use with --trial-run)
+    -t, --trial-run                   trial run (do not overwrite working ssh files)
+    -n, --narrate                     narrate the process
+    -v, --verbose                     narrate the process more verbosely
+    -h, --help                        print usage summary
 
 You specify multiple hosts or keys using a comma-separated list.
 
@@ -45,7 +50,7 @@ DESCRIPTION
 
 SSH Deploy reads a configuration file that contains information about the SSH 
 keys you use.  Using this information it regenerates and distributes your keys.  
-When generating your keys a passcode is needed.  SSH Deploy uses the Abraxas 
+When generating your keys a passcode is needed.  SSH Deploy uses the Avendesora 
 collaborative password generator to securely generate the passcodes.  This 
 avoids the need for you to interactively enter the passcodes.
 
@@ -98,7 +103,7 @@ default is sshdeploy.conf).  Here is a typical configuration file::
     Keys = {
         'earth': {
             'purpose': 'This key allows access from earth (primary laptop)',
-            'keygen-options': "-t ed25519",
+            'keygen_options': "-t ed25519",
             'servers': {
                 'earth': {},
                 'mercury': {
@@ -149,78 +154,100 @@ default is sshdeploy.conf).  Here is a typical configuration file::
     }
 
 When sshdeploy reads this file, it uses the value of several local variables 
-('keygen_options', 'abraxas_account', 'remote_include_filename', and 'keys') to 
+('keygen_options', 'avendesora_account', 'remote_include_filename', and 'keys') to 
 determine its behavior.
+
 
 Keygen Options
 **************
+
 A string that is passed to ssh-keygen to influence the generation of key.  If 
 not specified, the following will be used: '-t rsa -b 4096'.  This value is used 
 as the default for all keys and its value may be overridden in individual keys.
 
-Abraxas Account
-***************
+
+Avendesora Account
+******************
+
 When the private keys are generated a passcode is needed to secure the private 
-key.  SSH Deploy uses the Abraxas password manager to provide the needed 
+key.  SSH Deploy uses the Avendesora password manager to provide the needed 
 passcodes.  The value of this variable is a string that is used as the default 
-Abraxas account name for for all keys and its value may be overridden in 
+Avendesora account name for for all keys and its value may be overridden in 
 individual keys.
+
 
 Remote Include Filename
 ***********************
+
 Before SSH Deploy generates an authorized_keys file for a server, it will look 
 for a file in the server's ~/.ssh directory that contains public keys for keys 
 not managed by SSH Deploy that should be included in the authorized_keys file.  
 The value of this variable is the name of that file.
 
+
 Keys
 ****
+
 Keys is a dictionary where there is one entry per SSH key to be generated.  The 
 tag for the entry is the name of the SSH key and the value is a dictionary that 
 contains information that controls how the key is generated and distributed.  
-These dictionaries may contain the keys 'purpose', 'keygen-options', 
-'abraxas-account', 'servers', and 'clients'.
+These dictionaries may contain the keys 'purpose', 'keygen_options', 
+'avendesora_account', 'servers', and 'clients'.
+
 
 Purpose
 -------
+
 The purpose if given is simply a textual description of the purpose of
 the key.  It will be added as a comment above the public key when it is
 added to the authorized key file.
 
+
 Keygen Options
 --------------
+
 A string that is passed to ssh-keygen to influence the generation of
 key.  If not specified, the following will be used: '-t rsa -b 4096'.
 
-Abraxas Account
----------------
+
+Avendesora Account
+------------------
+
 When the private keys are generated a passcode is needed to secure the private 
-key.  SSH Deploy uses the Abraxas password manager to provide the needed 
+key.  SSH Deploy uses the Avendesora password manager to provide the needed 
 passcodes.  This value overrides the default value for this particular key.  If 
 the value is specified as None, then the private key will not be protected by 
 a passcode.
 
+
 Servers
 -------
+
 The servers key contains a dictionary where its keys would be the SSH
 names of servers whose authorized_keys file that should receive the
 public key.  The value of the servers key is also a dictionary that may
 be empty or may contain the following keys: 'description', 'restrictions', 
-'remote-include-filename', and 'bypass'.
+'remote_include_filename', and 'bypass'.
+
 
 Description
 '''''''''''
+
 The description is simply a second level of textual description for the
 public key (generally explains the restrictions).
 
+
 Restrictions
 ''''''''''''
+
 The value of restrictions is a list of SSH key restrictions.  These
 restrictions are comma joined and placed before the public key in the
 authorized key file.
 
+
 Remote Include Filename
 '''''''''''''''''''''''
+
 Before SSH Deploy generates an authorized_keys file for a server, it will look 
 for a file in the server's ~/.ssh directory that contains public keys for keys 
 not managed by SSH Deploy that should be included in the authorized_keys file.  
@@ -235,8 +262,10 @@ ignored.
 
 If the value is None, an include is not performed.
 
+
 Bypass
 ''''''
+
 Some servers, particularly commercial cloud servers, do not allow you to upload 
 an authorized_keys file using sftp.  Instead they generally provide a way 
 through their web portal.  In these cases you should specify bypass to be true.  
@@ -244,8 +273,10 @@ Doing so will prevent sshdeploy from attempting to upload the file and will
 cause it to emit a warning that acts as a reminder that you must upload your 
 file manually.
 
+
 Clients
 -------
+
 The clients key contains a dictionary where its keys would be the SSH
 names of client hosts that should receive the private and public key.
 The value of the clients key is also a dictionary that should be empty
@@ -257,8 +288,10 @@ KEY STRATEGIES
 
 Several key strategies can be implemented efficiently with SSH Deploy.
 
+
 One Key Per Server
 ******************
+
 With this strategy SSH keys are never shared between servers, meaning that one 
 server could not use its key to access another.  Normally this cross access 
 would not be possible anyway, but if there were a bug in SSH it could 
@@ -266,14 +299,18 @@ conceivably leak the private key to an untrusted server.  Since in this strategy
 the key for each server is unique, a leak would not compromise the other 
 servers.
 
+
 One Key Per Client
 ******************
+
 With this strategy the server can distinguish the client that is requesting 
 a connection.  Thus a particular client can be blocked or restrictions placed on 
 its access.
 
+
 Other Strategies
 ****************
+
 Using single key for each server/client pair can give the best security and 
 flexibility, but may be tedious to configure and maintain.  Alternatively, you 
 might adapt your strategy to provide the security and flexibility appropriate to 
@@ -343,5 +380,6 @@ that you follow the following process to generate and distribute your ssh keys.
 
 SEE ALSO
 ========
-abraxas
+
+avendesora
 sshconfig
