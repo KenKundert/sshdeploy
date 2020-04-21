@@ -40,10 +40,6 @@ With the --trial-run (or -t) option sshdeploy still generates the keys and
 copies them  to the remote hosts, but when doing so it will add '.provisional' 
 as a suffix to the files to that they do not overwrite existing working files.   
 
-The -g, -d, -u, -s, -k, and -t options are used largely for debugging and 
-gaining confidence that the distribution process will run correctly.  It is best 
-not to use any of these options when doing an actual push of your keys.
-
 
 DESCRIPTION
 ===========
