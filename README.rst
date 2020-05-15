@@ -386,6 +386,16 @@ that you follow the following process to generate and distribute your ssh keys.
 6. Thoroughly test your access to your hosts.  If you lose access, you can use 
    use either existing connections or your original ssh-agent to regain access.
 
+
+Adding a New Server
+*******************
+
+To distribute an existing set of keys to a new server::
+
+    sshdeploy -d keys-2020-05-10 -u neptune distribute
+
+
+
 SEE ALSO
 ========
 

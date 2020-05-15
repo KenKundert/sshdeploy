@@ -35,10 +35,10 @@ from .prefs import (
 )
 from .authkeys import AuthKeys
 from .key import Key
-from .utils import date, test_access, clean, to_path, Run, mkdir, cd, rm
+from .utils import cd, clean, date, mkdir, rm, Run, test_access, to_path
 from docopt import docopt
 from inform import (
-    Inform, comment, display, done, error, fatal, os_error, terminate
+    Inform, ProgressBar, comment, display, done, error, fatal, os_error, terminate
 )
 
 def main():
@@ -97,6 +97,7 @@ def main():
             comment('creating key directory:', keydir)
             rm(keydir)
             mkdir(keydir)
+            keydir.chmod(0o700)
             cd(keydir)
         elif cmdline['distribute']:
             cd(keydir)
@@ -112,7 +113,7 @@ def main():
 
         # Generate keys {{{1
         if cmdline['generate']:
-            for keyname in sorted(config['keys'].keys()):
+            for keyname in ProgressBar(sorted(config['keys'].keys())):
                 data = config['keys'][keyname]
                 if keys and keyname not in keys:
                     # user did not request this key
@@ -128,7 +129,8 @@ def main():
 
         # Publish keys {{{1
         elif cmdline['distribute']:
-            for keyname in sorted(config['keys'].keys()):
+            display('gather keys ...')
+            for keyname in ProgressBar(sorted(config['keys'].keys())):
                 data = config['keys'][keyname]
                 if keys and keyname not in keys:
                     continue # user did not request this key
@@ -143,16 +145,16 @@ def main():
                 key.gather_public_keys()
 
             # publish authorized_keys files to servers {{{1
-            if cmdline['distribute']:
-                for each in sorted(AuthKeys.known):
-                    authkey = AuthKeys.known[each]
-                    authkey.publish()
-                    authkey.verify()
+            display('distribute keys ...')
+            for each in ProgressBar(sorted(AuthKeys.known)):
+                authkey = AuthKeys.known[each]
+                authkey.publish()
+                authkey.verify()
 
         # Process hosts {{{1
         elif cmdline['test'] or cmdline['clean'] or cmdline['hosts']:
             hosts = set()
-            for keyname, data in config['keys'].items():
+            for keyname, data in ProgressBar(config['keys'].items()):
                 if keys and keyname not in keys:
                     continue # user did not request this key
 
