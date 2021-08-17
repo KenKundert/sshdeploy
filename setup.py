@@ -46,7 +46,7 @@ setup(
             'sshdeploy=sshdeploy.main:main',
         ],
     },
-    zip_safe = False,
+    zip_safe = True,
     packages = ['sshdeploy'],
     package_data = {'sshdeploy': ['manual.rst']},
     license = 'GPLv3+',
