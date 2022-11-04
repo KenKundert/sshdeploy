@@ -1,5 +1,5 @@
 ---------------------------------------------
-SSH Deploy - Generate and Distribute SSH Keys
+SSH Deploy — Generate and Distribute SSH Keys
 ---------------------------------------------
 
 :Author: Ken Kundert
